@@ -1,0 +1,168 @@
+[
+  {
+    "line": 2,
+    "elements": [
+      {
+        "start_timestamp": "2020-04-03T17:27:29.687Z",
+        "before": [
+          {
+            "result": {
+              "duration": 11729767900,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.beforeScenario(Scenario)"
+            }
+          }
+        ],
+        "line": 5,
+        "name": "Verifies title of projects",
+        "description": "",
+        "id": "project-page-testing;verifies-title-of-projects",
+        "after": [
+          {
+            "result": {
+              "duration": 623253100,
+              "status": "passed"
+            },
+            "match": {
+              "location": "Hooks.afterScenario()"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 3132833600,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "User opens \"login\" page",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"login\"",
+                  "offset": 11
+                }
+              ],
+              "location": "AdminHomePage_STEPS.user_opens_page(String)"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 2128237000,
+              "status": "passed"
+            },
+            "line": 7,
+            "name": "User logins to admin page",
+            "match": {
+              "location": "AdminHomePage_STEPS.user_logins_to_admin_page()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 1222829400,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "User opens \"Projects\" page",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Projects\"",
+                  "offset": 11
+                }
+              ],
+              "location": "AdminHomePage_STEPS.user_opens_page(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 811745400,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "User selects week \"1\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"1\"",
+                  "offset": 18
+                }
+              ],
+              "location": "ProjectsPage_STEPS.user_selects_week(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 774270300,
+              "status": "passed"
+            },
+            "line": 10,
+            "name": "User opens \"Hello World\" project",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Hello World\"",
+                  "offset": 11
+                }
+              ],
+              "location": "ProjectsPage_STEPS.user_opens_project(String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 27869400,
+              "status": "passed"
+            },
+            "line": 11,
+            "name": "Verifies the text \"Requirement:\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "\"Requirement:\"",
+                  "offset": 18
+                }
+              ],
+              "location": "AdminHomePage_STEPS.verifies_the_text(String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@projectsPageTest"
+          },
+          {
+            "name": "@projectPage"
+          },
+          {
+            "name": "@smoke"
+          }
+        ]
+      }
+    ],
+    "name": "Project Page Testing",
+    "description": "",
+    "id": "project-page-testing",
+    "keyword": "Feature",
+    "uri": "file:src/test/resources/features/projectsPage.feature",
+    "tags": [
+      {
+        "name": "@projectsPageTest",
+        "type": "Tag",
+        "location": {
+          "line": 1,
+          "column": 1
+        }
+      }
+    ]
+  }
+]
