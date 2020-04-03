@@ -45,6 +45,10 @@ public class AdminHomePage_Impl {
                 if(text.equalsIgnoreCase(project.requirementText.getText()))
                     return true;
                 break;
+            case "PASS:":
+                if(text.equalsIgnoreCase(project.passText.getText()))
+                    return true;
+                break;
         }
         return false;
     }

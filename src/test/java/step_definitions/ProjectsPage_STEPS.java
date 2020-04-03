@@ -22,4 +22,9 @@ public class ProjectsPage_STEPS {
         SeleniumUtils.waitForVisibilityOfElement(projects.project_HelloWorld);
         projectsPage_Impl.openProject(string);
     }
+
+    @When("User inputs {string}")
+    public void user_inputs(String string) {
+        projectsPage_Impl.inputCode(string);
+    }
 }

@@ -19,4 +19,12 @@ public class ProjectsPage {
 
     @FindBy(xpath = "//li[1]//div[1]//div[1]//div[3]//button[1]//span[1]")
     public WebElement week_1;
+
+    @FindBy(xpath = "//span[@class='cm-comment']")
+    public WebElement passText;
+
+    @FindBy(xpath = "//button[@class='btn btn-primary ml-1']")
+    public WebElement evaluate_Btn;
+
+
 }

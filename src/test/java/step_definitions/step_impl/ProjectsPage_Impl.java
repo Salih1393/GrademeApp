@@ -1,6 +1,9 @@
 package step_definitions.step_impl;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import pages.ProjectsPage;
+import utils.Driver;
 import utils.SeleniumUtils;
 
 public class ProjectsPage_Impl {
@@ -21,5 +24,18 @@ public class ProjectsPage_Impl {
                 SeleniumUtils.click(projects.week_1);
                 break;
         }
+    }
+
+    public void inputCode(String code){
+
+        SeleniumUtils.click(projects.passText);
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("arguments[0].value='Avinash Mishra';", projects.passText);
+        SeleniumUtils.sleep(2000);
+//        SeleniumUtils.clear(projects.passText);
+//        SeleniumUtils.sleep(2000);
+        SeleniumUtils.sendKeys(projects.passText,code);
+        SeleniumUtils.click(projects.evaluate_Btn);
+        SeleniumUtils.sleep(5000);
     }
 }

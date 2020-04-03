@@ -23,7 +23,7 @@ public class SeleniumUtils{
 
     public static void waitForClickability(WebElement element){
         WebDriverWait explicitWait = new WebDriverWait(Driver.getDriver(), SeleniumConstants.EXPLICIT_WAIT_TIME);
-        explicitWait.until(ExpectedConditions.visibilityOf(element));
+        explicitWait.until(ExpectedConditions.elementToBeClickable(element));
     }
     public static void waitForVisibilityOfAll(List<WebElement> list){
         WebDriverWait explicitWait = new WebDriverWait(driver, SeleniumConstants.EXPLICIT_WAIT_TIME);
@@ -45,6 +45,14 @@ public class SeleniumUtils{
         waitForClickability(element);
         highlightElement(element);
         element.click();
+    }
+
+    public static void clear(WebElement element){
+//        WebDriverWait explicitWait = new WebDriverWait(Driver.getDriver(), SeleniumConstants.EXPLICIT_WAIT_TIME);
+//        explicitWait.until(ExpectedConditions.visibilityOf(element));
+        waitForClickability(element);
+        highlightElement(element);
+        element.clear();
     }
 
     public static void sendKeys(WebElement element, String input){
