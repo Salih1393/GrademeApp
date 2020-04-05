@@ -27,4 +27,7 @@ public class AdminHomePage {
     @FindBy(xpath = "//a[contains(text(),'Projects')]")
     public WebElement project_Btn;
 
+    @FindBy(xpath = "//a[contains(text(),'GRADEME')]")
+    public WebElement techLead_Btn;
+
 }

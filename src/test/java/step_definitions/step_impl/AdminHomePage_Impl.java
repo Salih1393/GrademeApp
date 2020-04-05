@@ -32,6 +32,9 @@ public class AdminHomePage_Impl {
             case "projects":
                 SeleniumUtils.click(admin.project_Btn);
                 break;
+            case "tech lead":
+                SeleniumUtils.click(admin.techLead_Btn);
+                break;
         }
     }
 

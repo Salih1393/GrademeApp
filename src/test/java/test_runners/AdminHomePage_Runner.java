@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
                 "json:target/cucumber-reports/cucumberTestReports.json",
                 },
         dryRun = false,
-        tags = "@logOutButtonTest"
+        tags = "@navigateToTechLeadPage"
 )
 public class AdminHomePage_Runner {
 }
