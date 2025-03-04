@@ -1,89 +1,91 @@
 package utils;
 
-import utils.ConfigReader;
 import constants.SeleniumConstants;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 public class Driver {
-    private static WebDriver driver = null;
-    public static final String propertyPath = "./src/test/resources/conf/configurations.properties";
-    public static final String sauceUsername = ConfigReader.readProperty("sauceUser");
-    public static final String sauceKey = ConfigReader.readProperty("sauceKey");
-    public static final String URL = "https://" + sauceUsername +":"+sauceKey+"@ondemand.saucelabs.com:443/wd/hub";
 
-    public static void initialize(String browser) {
-        if (driver != null)
-            return;
-        if (ConfigReader.readProperty("runInSauceLabs").equalsIgnoreCase("true")) {
+    private static WebDriver driver;
+    private static final String SAUCE_USERNAME = ConfigReader.readProperty("sauceUser");
+    private static final String SAUCE_KEY = ConfigReader.readProperty("sauceKey");
+    private static final String SAUCE_URL = "https://" + SAUCE_USERNAME + ":" + SAUCE_KEY + "@ondemand.saucelabs.com:443/wd/hub";
+
+    private Driver() {
+        // Private constructor to prevent instantiation
+    }
+
+    public static synchronized void initialize(String browser) {
+        if (driver != null) return;
+
+        if ("true".equalsIgnoreCase(ConfigReader.readProperty("runInSauceLabs"))) {
             driver = getRemoteDriver();
-            return;
         } else {
-            switch (browser) {
+            switch (browser.toLowerCase()) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case "ie":
                     WebDriverManager.iedriver().setup();
                     driver = new InternetExplorerDriver();
                     break;
                 default:
-                    System.out.println("Invalid browser type");
+                    throw new IllegalArgumentException("Invalid browser type: " + browser);
             }
-            driver.manage().timeouts().implicitlyWait(SeleniumConstants.IMPLICIT_WAIT_TIME, TimeUnit.SECONDS);
-            driver.manage().window().maximize();
-            driver.manage().timeouts().pageLoadTimeout(SeleniumConstants.PAGE_LOAD_TIME, TimeUnit.SECONDS);
         }
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(SeleniumConstants.IMPLICIT_WAIT_TIME));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(SeleniumConstants.PAGE_LOAD_TIME));
+        driver.manage().window().maximize();
     }
 
-    public static void closeDriver(){
-        if (driver != null){
+    public static synchronized WebDriver getDriver() {
+        if (driver == null) {
+            initialize(ConfigReader.readProperty("browser"));
+        }
+        return driver;
+    }
+
+    public static synchronized void closeDriver() {
+        if (driver != null) {
             driver.close();
             driver = null;
         }
     }
 
-    public static void quitDriver(){
-        if (driver!=null)
+    public static synchronized void quitDriver() {
+        if (driver != null) {
             driver.quit();
-        driver = null;
+            driver = null;
+        }
     }
 
-    public static WebDriver getDriver(){
-        if (driver != null)
-            return driver;
-        initialize(ConfigReader.readProperty("browser"));
-        return driver;
-    }
-
-    public static WebDriver getRemoteDriver(){
-
-        WebDriver driver = null;
+    private static WebDriver getRemoteDriver() {
         try {
-            DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-            capabilities.setCapability("BrowserName","chrome");
-            capabilities.setCapability("version",ConfigReader.readProperty("browser_version"));
-            capabilities.setCapability("platform",ConfigReader.readProperty("os"));
-            driver = new RemoteWebDriver(new URL(URL),capabilities);
+            ChromeOptions options = new ChromeOptions();
+            options.setCapability("browserName", "chrome");
+            options.setCapability("version", ConfigReader.readProperty("browser_version"));
+            options.setCapability("platformName", ConfigReader.readProperty("os"));
+            return new RemoteWebDriver(new URL(SAUCE_URL), options);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Invalid remote WebDriver URL: " + SAUCE_URL, e);
         }
-        catch (MalformedURLException e){
-            e.printStackTrace();
-        }
-        return driver;
     }
-
 }
