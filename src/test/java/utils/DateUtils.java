@@ -1,32 +1,28 @@
 package utils;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class DateUtils {
 
-    public String getCurrentFormattedDate(){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
-        Date date = new Date();
-        return formatter.format(date);
+    private static final DateTimeFormatter DEFAULT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+    private static final DateTimeFormatter SHORT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private DateUtils() {
+        // Private constructor to prevent instantiation
     }
 
-    public static String currentDateTime(){
-        DateTimeFormatter date = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        return date.format(now);
+    public static String getCurrentFormattedDate() {
+        return LocalDate.now().format(DEFAULT_DATE_FORMAT);
     }
 
-    public static String currentDatePlus(int plusDays){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate date = LocalDate.now().plusDays(plusDays);
-        return formatter.format(date);
+    public static String getCurrentDateTime() {
+        return LocalDateTime.now().format(DATE_TIME_FORMAT);
     }
 
-
-
-
+    public static String getFutureDate(int daysToAdd) {
+        return LocalDate.now().plusDays(daysToAdd).format(SHORT_DATE_FORMAT);
+    }
 }
