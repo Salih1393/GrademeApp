@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import pages.AdminHomePage;
 import step_definitions.step_impl.AdminHomePage_Impl;
-import utils.ConfigReader;
 import utils.Driver;
 
 public class AdminHomePage_STEPS {

@@ -17,6 +17,7 @@ import java.time.Duration;
 public class Driver {
 
     private static WebDriver driver;
+    public static final String propertyPath = "./src/test/resources/conf/configurations.properties";
     private static final String SAUCE_USERNAME = ConfigReader.readProperty("sauceUser");
     private static final String SAUCE_KEY = ConfigReader.readProperty("sauceKey");
     private static final String SAUCE_URL = "https://" + SAUCE_USERNAME + ":" + SAUCE_KEY + "@ondemand.saucelabs.com:443/wd/hub";

@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
                 "pretty",
                 "html:target/cucumber-reports/SmokeTests-report",
                 "json:target/cucumber-reports/cucumberTestReports.json"
-            },
+        },
         dryRun = false,
-        tags = {"@smoke"}
+        tags = "@smoke"
 )
 public class SmokeTests_Runner {
 }
